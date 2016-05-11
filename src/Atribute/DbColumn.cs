@@ -1,4 +1,4 @@
-Ôªøusing System;
+using System;
 
 namespace DataAccessFW.Atribute
 {
@@ -19,14 +19,14 @@ namespace DataAccessFW.Atribute
         public Type ColumnType { get; set; }
 
         /// <summary>
-        /// Se √© PrimaryKey
+        /// Se È PrimaryKey
         /// </summary>
         public bool PrimaryKey { get; set; }
 
         public bool Identity { get; set; }
 
         /// <summary>
-        /// Propriedade que define se campo ser√° listado
+        /// Propriedade que define se campo ser· listado
         /// </summary>
         public bool List { get; set; }
 
@@ -48,44 +48,11 @@ namespace DataAccessFW.Atribute
 
         public DbColumn(string columnName, Type columnType, bool primaryKey, bool list, bool required)
         {
-
+            ColumnName = columnName;
+            ColumnType = columnType;
+            PrimaryKey = primaryKey;
+            List = list;
+            Required = required;
         }
-    }
-
-    /// <summary>
-    /// Atributo para Framework de Persistencia
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Class)]
-    public sealed class DbTable : Attribute
-    {
-        public readonly string TableName;
-
-        public DbTable()
-        {
-
-        }
-
-        /// <summary>
-        /// Construtor
-        /// </summary>
-        /// <param name="tableName">Nome da Tabela</param>
-        public DbTable(string tableName)
-        {
-            this.TableName = tableName;
-        }
-
-        public bool DeleteAll { get; set; }
-
-        public bool ComplexType { get; set; }
-    }
-
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum)]
-    public sealed class Gerar : Attribute
-    {
-        public Gerar()
-        {
-        }
-
-        public bool GerarClasse { get; set; }
     }
 }

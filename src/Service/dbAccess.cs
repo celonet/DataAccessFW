@@ -1,5 +1,4 @@
 ﻿using DataAccessFW.Model;
-using System;
 
 namespace DataAccessFW.Service
 {
@@ -8,27 +7,26 @@ namespace DataAccessFW.Service
         public static string ConnectionString { get; set; }
         public static Provider DataBase { get; set; }
 
-        private Database database;
+        private readonly Database _database;
 
         private static volatile DbAccess _instance;
-        private static object syncRoot = new Object();
+        private static readonly object SyncRoot = new object();
 
         private DbAccess()
         {
-            database = new Database(ConnectionString, DataBase);
+            _database = new Database(ConnectionString, DataBase);
         }
 
         public static DbAccess Instance
         {
             get
             {
-                if (_instance == null)
+                if (_instance != null)
+                    return _instance;
+                lock (SyncRoot)
                 {
-                    lock (syncRoot)
-                    {
-                        if (_instance == null)
-                            _instance = new DbAccess();
-                    }
+                    if (_instance == null)
+                        _instance = new DbAccess();
                 }
                 return _instance;
             }
@@ -36,7 +34,7 @@ namespace DataAccessFW.Service
 
         public Database GetDatabase()
         {
-            return database;
+            return _database;
         }
     }
 }

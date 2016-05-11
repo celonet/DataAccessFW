@@ -10,12 +10,13 @@ namespace DataAccessFW.Interface
     public abstract class DbProvider
     {
         public string Erro;
+
         /// <summary>
         /// ConnectionString do Banco
         /// </summary>
         public string ConnectionString { get; set; }
 
-        public DbProvider(string connectionString)
+        protected DbProvider(string connectionString)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new Exception("Verifique ConnectionString");

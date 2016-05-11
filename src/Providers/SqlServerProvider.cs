@@ -11,7 +11,7 @@ namespace DataAccessFW.Providers
     /// </summary>
     internal sealed class SqlServerProvider : DbProvider
     {
-        private SqlConnection _conn;
+        private readonly SqlConnection _conn;
         private SqlTransaction _tran;
 
         public SqlServerProvider(string connectionString)
@@ -50,10 +50,10 @@ namespace DataAccessFW.Providers
 
         public override bool ExecuteCommand(string query, ref string msgErro, params DbParameter[] parametros)
         {
-            bool exec = false;
+            var exec = false;
             using (_conn)
             {
-                SqlCommand command = new SqlCommand(query, _conn);
+                var command = new SqlCommand(query, _conn);
 
                 if (parametros != null)
                 {
@@ -77,14 +77,14 @@ namespace DataAccessFW.Providers
 
         public override DataTable ExecuteQuery(string query, ref string msgErro, params DbParameter[] parametros)
         {
-            DataTable dt = new DataTable();
+            var dt = new DataTable();
 
             if (string.IsNullOrWhiteSpace(this.ConnectionString))
                 throw new Exception("ConnectionString vazia!");
 
             using (_conn)
             {
-                SqlDataAdapter da = new SqlDataAdapter(query, _conn);
+                var da = new SqlDataAdapter(query, _conn);
 
                 if (parametros != null)
                 {

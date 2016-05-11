@@ -19,7 +19,7 @@ namespace DataAccessFW.Utils
 
         public static int ToInt(object value)
         {
-            int rValue = 0;
+            var rValue = 0;
 
             if(value == null || value == DBNull.Value ||  value.ToString() == string.Empty)
                 return rValue;                
@@ -43,7 +43,7 @@ namespace DataAccessFW.Utils
 
         public static DateTime ToDateTime(object value)
         {
-            DateTime dt = DateTime.MinValue;
+            var dt = DateTime.MinValue;
 
             if (value == null || value == DBNull.Value)
                 return dt;
@@ -52,18 +52,21 @@ namespace DataAccessFW.Utils
             {
                 DateTime.TryParse(value.ToString(), out dt);
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             return dt;
         }
 
         public static double ToDouble(object valor)
         {
-            double numero = 0d;
+            var numero = 0d;
             if (valor == null || valor == DBNull.Value || valor.ToString() == "")
                 return numero;
 
-            string numeroX = valor.ToString().Replace(',', '.');
+            var numeroX = valor.ToString().Replace(',', '.');
             double.TryParse(numeroX, NumberStyles.Any, new CultureInfo("pt-BR"), out numero);
 
             return numero;
@@ -71,9 +74,9 @@ namespace DataAccessFW.Utils
 
         public static bool ToBool(object valor)
         {
-            bool rValue = false;
+            var rValue = false;
             if (valor == null || valor == DBNull.Value || valor.ToString() == "")
-                return rValue;
+                return false;
 
             try
             {
@@ -81,8 +84,9 @@ namespace DataAccessFW.Utils
             }
             catch
             {
-
+                // ignored
             }
+
             return rValue;
         }
     }

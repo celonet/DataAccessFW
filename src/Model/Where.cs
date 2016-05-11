@@ -1,28 +1,26 @@
-﻿using System;
-
-namespace DataAccessFW.Model
+﻿namespace DataAccessFW.Model
 {
     public class Where
     {
         public string Campo { get; set; }
         public Operador Operador { get; set; }
 
-        public Object Valor { get; set; }
+        public object Valor { get; set; }
 
         public Where() { }
 
         public Where(string campo, object valor)
         {
-            this.Campo = campo;
-            this.Operador = Operador.Igual;
-            this.Valor = valor;
+            Campo = campo;
+            Operador = Operador.Igual;
+            Valor = valor;
         }
 
         public Where(string campo, Operador operador, object valor)
         {
-            this.Campo = campo;
-            this.Operador = operador;
-            this.Valor = valor;
+            Campo = campo;
+            Operador = operador;
+            Valor = valor;
         }
     }
 }

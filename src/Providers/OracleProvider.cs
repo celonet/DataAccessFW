@@ -7,7 +7,7 @@ namespace DataAccessFW.Providers
 {
     internal class OracleProvider : DbProvider
     {
-        private OracleConnection _conn;
+        private readonly OracleConnection _conn;
         private OracleTransaction _tran;
 
         public OracleProvider(string connectionString)
@@ -18,10 +18,10 @@ namespace DataAccessFW.Providers
 
         public override bool ExecuteCommand(string query, ref string msgErro, params System.Data.Common.DbParameter[] parametros)
         {
-            bool exec = false;
+            var exec = false;
             using (_conn)
             {
-                OracleCommand command = new OracleCommand(query, _conn);
+                var command = new OracleCommand(query, _conn);
 
                 if (parametros != null)
                 {
@@ -45,14 +45,14 @@ namespace DataAccessFW.Providers
 
         public override DataTable ExecuteQuery(string query, ref string msgErro, params System.Data.Common.DbParameter[] parametros)
         {
-            DataTable dt = new DataTable();
+            var dt = new DataTable();
 
             if (string.IsNullOrWhiteSpace(this.ConnectionString))
                 throw new Exception("ConnectionString vazia!");
 
             using (_conn)
             {
-                OracleDataAdapter da = new OracleDataAdapter(query, _conn);
+                var da = new OracleDataAdapter(query, _conn);
 
                 if (parametros != null)
                 {

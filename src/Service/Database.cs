@@ -22,14 +22,14 @@ namespace DataAccessFW.Service
 
         public bool ExecuteCommand(string query, ref string msgErro, params DbParameter[] parametros)
         {
-            DbProvider provider = GetProvider();
+            var provider = GetProvider();
             provider.ConnectionString = this.ConnectionString;
             return provider.ExecuteCommand(query, ref msgErro, parametros);
         }
 
         public DataTable ExecuteQuery(string query, ref string msgErro, params DbParameter[] parametros)
         {
-            DbProvider provider = GetProvider();
+            var provider = GetProvider();
             provider.ConnectionString = this.ConnectionString;
             return provider.ExecuteQuery(query, ref msgErro, parametros);
         }

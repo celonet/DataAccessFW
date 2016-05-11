@@ -8,7 +8,7 @@ namespace DataAccessFW.Providers
 {
     internal class MySqlProvider : DbProvider
     {
-        private MySqlConnection _conn;
+        private readonly MySqlConnection _conn;
         private MySqlTransaction _tran;
 
         public MySqlProvider(string connectionString)
@@ -19,10 +19,10 @@ namespace DataAccessFW.Providers
 
         public override bool ExecuteCommand(string query, ref string msgErro, params System.Data.Common.DbParameter[] parametros)
         {
-            bool exec = false;
-            using (MySqlConnection conn = new MySqlConnection(this.ConnectionString))
+            var exec = false;
+            using (var conn = new MySqlConnection(this.ConnectionString))
             {
-                MySqlCommand command = new MySqlCommand(query, conn);
+                var command = new MySqlCommand(query, conn);
 
                 if (parametros != null)
                 {
@@ -49,16 +49,16 @@ namespace DataAccessFW.Providers
 
         public override DataTable ExecuteQuery(string query, ref string msgErro, params System.Data.Common.DbParameter[] parametros)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            DataTable dt = new DataTable();
+            var dt = new DataTable();
 
             if (string.IsNullOrWhiteSpace(this.ConnectionString))
                 throw new Exception("ConnectionString vazia!");
 
-            using (MySqlConnection conn = new MySqlConnection(this.ConnectionString))
+            using (var conn = new MySqlConnection(this.ConnectionString))
             {
-                MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
+                var da = new MySqlDataAdapter(query, conn);
 
                 if (parametros != null)
                 {
